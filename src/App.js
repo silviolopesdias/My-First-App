@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Image from "./img/peoples.svg";
 
 function App() {
+  const [comment, setComment] = React.useState();
+
+  const [allComments, setAllComment] = React.useState([]);
+
+  function ICommented(event) {
+    setComment(event.target.value);
+  }
+
+  function onClickButton() {
+    const allPreviousComments = [...allComments, comment];
+
+    setAllComment(allPreviousComments);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <img src={Image} alt="peoples-imagem" />
+
+      <textarea onChange={ICommented} placeholder=" Your comment here "></textarea>
+
+      <button onClick={onClickButton}>Comment</button>
+
+      <ul>
+        {allComments.map((comment) => (
+          <li key={comment} placeholder="Comment here">{comment}</li>
+        ))}
+      </ul>
     </div>
   );
 }
